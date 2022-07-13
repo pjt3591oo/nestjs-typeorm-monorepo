@@ -2,19 +2,20 @@ import { entityModule, Photo } from '@app/entity';
 import { Module } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 
-import { PhotoController } from './photo.controller';
-import { PhotoService } from './photo.service';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [entityModule],
-  controllers: [PhotoController],
+
+  controllers: [AppController],
   providers: [
-    PhotoService,
+    AppService,
     {
-      provide: 'PHOTO_REPOSITORY',
+      provide: Photo,
       useFactory: (dataSource: DataSource) => dataSource.getRepository(Photo),
       inject: ['DATA_SOURCE'],
     },
   ],
 })
-export class PhotoModule {}
+export class AppModule {}
